@@ -1,0 +1,10 @@
+Hiss Web is not responsible for the use of the tools.
+
+New feature to hide videos has been released.
+
+Most of the tools are written in Python.
+
+But viruses may be detected. The source code is also included.
+All the tools on the site were safe and reliable.
+You are able to check the code.
+

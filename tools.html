@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>HISS WEB - Hacker Terminal</title>
+  <title>ابزارها | HISS TOOLS</title>
   <link rel="stylesheet" href="styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
 </head>
@@ -27,44 +27,39 @@
 
   <!-- محتوای اصلی -->
   <main>
-    <section id="News" class="output-section">
-      <h2>News of the Day</h2>
-      <pre id="NewsBox" class="output-box">در حال بارگذاری...</pre>
-    </section>
+    <section id="tools" class="info-section">
+      <h2>ابزارها</h2>
 
-    <section id="LiveConsole" class="output-section">
-      <h2>Live Console</h2>
-      <pre id="liveConsole" class="output-box">...</pre>
-    <script>
-    const consoleEl = document.getElementById('liveConsole');
-    const source = new EventSource('http://192.168.1.101:5001/stream');
+      <div class="tool-box">
+        <h3>🔐 Password Generator</h3>
+        <p>ابزاری برای تولید رمز عبور قوی و تصادفی با قابلیت تنظیم طول، حروف، اعداد و نمادها.</p>
+        <a href="tools/password_generator.zip" class="download-button" download>دانلود</a>
+      </div>
 
-    source.onmessage = function(event) {
-      consoleEl.textContent = event.data; // نمایش چند خط به درستی
-    };
+      <div class="tool-box">
+        <h3>🌐 IP Scanner</h3>
+        <p>اسکنر ساده آی‌پی جهت بررسی دستگاه‌های فعال در شبکه‌های محلی. مناسب برای یادگیری شبکه و امنیت.</p>
+        <a href="tools/ip_scanner.zip" class="download-button" download>دانلود</a>
+      </div>
 
-    source.onerror = function() {
-      consoleEl.textContent = "!";
-      source.close();
-    };
-    </script>
-    </section>
+      <div class="tool-box">
+        <h3>🛡 File Encryptor</h3>
+        <p>رمزنگاری فایل‌ها با الگوریتم AES برای حفاظت از داده‌های حساس شما.</p>
+        <a href="tools/file_encryptor.zip" class="download-button" download>دانلود</a>
+      </div>
 
-    <section id="about" class="info-section">
-      <h2>About hiss web</h2>
-      <p>
-        This site is active in the field of useful programs for computers and extracting information and entertainment in the PC field.
-      </p>
+
+
     </section>
 
     <section id="contact" class="info-section">
-      <h2>Contact Us</h2>
-      <p>Email: <a href="mailto:hissweb@gmail.com">hissweb@gmail.com</a></p>
-      <p>telegram: <a href="https://t.me/hiss web" target="_blank">@hiss web</a></p>
+      <h2>ارتباط با ما</h2>
+      <p>ایمیل: <a href="mailto:hacker@matrix.com">hacker@matrix.com</a></p>
+      <p>تلگرام: <a href="https://t.me/HackerMatrix" target="_blank">@HackerMatrix</a></p>
     </section>
   </main>
 
-  <!-- اسکریپت ماتریکس و بارگذاری فایل‌ها -->
+  <!-- ماتریکس انیمیشن -->
   <script>
     const canvas = document.getElementById("matrix");
     const ctx = canvas.getContext("2d");
@@ -88,41 +83,26 @@
     function drawMatrix() {
       ctx.fillStyle = "rgba(0, 0, 0, 0.07)";
       ctx.fillRect(0, 0, width, height);
+
       ctx.fillStyle = "#00ff00";
       ctx.font = fontSize + "px 'Share Tech Mono', monospace";
 
       for (let i = 0; i < drops.length; i++) {
         let text = letters.charAt(Math.floor(Math.random() * letters.length));
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
         if (drops[i] * fontSize > height && Math.random() > 0.975) {
           drops[i] = 0;
         }
+
         drops[i]++;
       }
-    }
-
-    async function loadTextFile(id, filename) {
-      try {
-        const response = await fetch(filename);
-        if (!response.ok) throw new Error("خطا در بارگذاری فایل: " + filename);
-        const text = await response.text();
-        document.getElementById(id).textContent = text;
-      } catch (err) {
-        document.getElementById(id).textContent = err.message;
-      }
-    }
-
-    function startLoading() {
-      loadTextFile("NewsBox", "News.txt");
-      setInterval(() => {
-        loadTextFile("NewsBox", "News.txt");
-      }, 4000);
     }
 
     window.addEventListener('resize', setupMatrix);
     setupMatrix();
     setInterval(drawMatrix, 40);
-    startLoading();
   </script>
+
 </body>
 </html>
