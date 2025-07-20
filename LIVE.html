@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HISS WEB - Live</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+
+  <canvas id="matrix"></canvas>
+
+  <header>
+    <div class="logo green-glow">HISS WEB</div>
+    <nav>
+      <a href="index.html">home</a>
+      <a href="LIVE.html" class="active">LIVE</a>
+      <a href="tools.html">TOOLS</a>
+      <a href="Terminal.html">Terminal</a>
+      <a href="Contact.html">Contact</a>
+      <a href="Using.html">Using</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- بخش ویدیو لایو -->
+    <section id="liveStream" class="output-section">
+      <h2>📡 Live Video Stream</h2>
+<video id="liveVideo" class="live-video" controls autoplay muted playsinline></video>
+    </section>
+
+    <!-- کنسول زنده -->
+    <section id="LiveConsole" class="output-section">
+      <h2>💻 Live Console Output</h2>
+      <pre id="liveConsole" class="output-box">در حال اتصال به کنسول زنده...</pre>
+    </section>
+
+    <!-- اسکریپت Live -->
+    <script>
+      // پخش HLS ویدیو
+      const video = document.getElementById('liveVideo');
+      const streamUrl = 'http://yourserver.com/stream/playlist.m3u8'; // ← لینک HLS
+
+      if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(streamUrl);
+        hls.attachMedia(video);
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = streamUrl;
+      }
+
+      // اتصال به کنسول متنی
+      const consoleEl = document.getElementById('liveConsole');
+      const source = new EventSource('http://yourserver.com/console'); // ← لینک SSE
+
+      source.onmessage = function(event) {
+        consoleEl.textContent += '\n' + event.data;
+        consoleEl.scrollTop = consoleEl.scrollHeight; // اسکرول اتوماتیک
+      };
+
+      source.onerror = function() {
+        consoleEl.textContent += "\n[خطا در دریافت داده از کنسول]";
+        source.close();
+      };
+    </script>
+
+    <!-- درباره -->
+    <section id="about" class="info-section">
+      <h2>About HISS WEB</h2>
+      <p>
+        HISS WEB provides real-time tools, data extraction, and visual systems for PC lovers and ethical hackers.
+      </p>
+    </section>
+  </main>
+
+  <!-- اسکریپت ماتریکس -->
+  <script>
+    const canvas = document.getElementById("matrix");
+    const ctx = canvas.getContext("2d");
+
+    let width, height;
+    const fontSize = 18;
+    let columns;
+    let drops;
+
+    function setupMatrix() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+      columns = Math.floor(width / fontSize);
+      drops = Array(columns).fill(1);
+    }
+
+    const letters = "アカサタナハマヤラワ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    function drawMatrix() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.07)";
+      ctx.fillRect(0, 0, width, height);
+      ctx.fillStyle = "#00ff00";
+      ctx.font = fontSize + "px 'Share Tech Mono', monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        let text = letters.charAt(Math.floor(Math.random() * letters.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    window.addEventListener('resize', setupMatrix);
+    setupMatrix();
+    setInterval(drawMatrix, 40);
+  </script>
+
+</body>
+</html>

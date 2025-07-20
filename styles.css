@@ -440,3 +440,108 @@ a:hover {
     font-size: 12px;
   }
 }
+
+
+.live-video {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: black;
+  border: 2px solid #00ff00;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #00ff00;
+}
+
+
+@media (max-width: 600px) {
+  .live-video {
+    width: 100%;
+    max-width: 100%;
+    border-width: 1px;
+    box-shadow: 0 0 10px #00ff00;
+  }
+}
+
+/* ==== Contact Us Styles === */
+
+.contact-section {
+  max-width: 800px;
+  margin: 80px auto 50px;
+  background: rgba(0, 20, 0, 0.85);
+  padding: 30px;
+  border: 2px solid #00ff00;
+  border-radius: 12px;
+  box-shadow: 0 0 25px #00ff00;
+  transition: 0.3s ease;
+}
+
+.contact-section:hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 35px #00ff00;
+}
+
+.contact-section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 25px;
+  text-shadow: 0 0 10px #00ff00;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-form label {
+  color: #00ff00;
+  font-weight: bold;
+}
+
+.contact-form input,
+.contact-form textarea {
+  background: black;
+  color: #00ff00;
+  border: 2px solid #00ff00;
+  border-radius: 8px;
+  padding: 10px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1rem;
+  box-shadow: 0 0 10px #00ff00;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #a0ffa0;
+  box-shadow: 0 0 15px #00ff00;
+}
+
+.submit-button {
+  background: black;
+  color: #00ff00;
+  border: 2px solid #00ff00;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  font-weight: bold;
+  width: fit-content;
+  box-shadow: 0 0 15px #00ff00;
+  transition: 0.3s ease;
+}
+
+.submit-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px #00ff00;
+}
+
+.form-status {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #aaffaa;
+  text-align: center;
+}
