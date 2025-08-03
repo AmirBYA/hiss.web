@@ -30,23 +30,6 @@
       <h2>News of the Day</h2>
       <pre id="NewsBox" class="output-box">در حال بارگذاری...</pre>
     </section>
-
-    <section id="LiveConsole" class="output-section">
-      <h2>Live Console</h2>
-      <pre id="liveConsole" class="output-box">...</pre>
-    <script>
-    const consoleEl = document.getElementById('liveConsole');
-    const source = new EventSource('http://192.168.1.101:5001/stream');
-
-    source.onmessage = function(event) {
-      consoleEl.textContent = event.data; // نمایش چند خط به درستی
-    };
-
-    source.onerror = function() {
-      consoleEl.textContent = "!";
-      source.close();
-    };
-    </script>
     </section>
 
     <section id="about" class="info-section">
